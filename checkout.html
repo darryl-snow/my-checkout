@@ -96,7 +96,7 @@
             return actions.payment.execute().then(function() {
               // Show a confirmation message to the buyer
               // window.alert('Thank you for your purchase!');
-              window.location.href="complete.html";
+              window.location.href = "/complete?id=" + data.paymentID;
             });
           }
         }, '#button');
