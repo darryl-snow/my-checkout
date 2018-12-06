@@ -22,7 +22,7 @@
     "mocha": "^5.2.0"
   },
   "scripts": {
-    "start": "",
+    "start": "node ./index.js",
     "tests": "mocha --require babel-core/register"
   }
 }
