@@ -1,0 +1,28 @@
+{
+  "name": "my-checkout",
+  "version": "1.0.0",
+  "description": "Paypal checkout button",
+  "main": "index.js",
+  "repository": "https://github.com/darryl-snow/my-checkout",
+  "author": "Darryl Snow",
+  "license": "UNLICENSED",
+  "devDependencies": {
+    "assert": "^1.4.1",
+    "babel-cli": "^6.26.0",
+    "babel-loader": "^8.0.4",
+    "babel-polyfill": "^6.26.0",
+    "babel-preset-env": "^1.7.0",
+    "babel-preset-minify": "^0.5.0",
+    "eslint": "^5.9.0",
+    "eslint-config-airbnb": "^17.1.0",
+    "eslint-config-airbnb-base": "^13.1.0",
+    "eslint-plugin-import": "^2.14.0",
+    "eslint-plugin-jsx-a11y": "^6.1.2",
+    "eslint-plugin-react": "^7.11.1",
+    "mocha": "^5.2.0"
+  },
+  "scripts": {
+    "start": "",
+    "tests": "mocha --require babel-core/register"
+  }
+}
