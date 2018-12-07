@@ -26,7 +26,7 @@ describe('My Checkout', () => {
         console.log(res.body);
         res.should.have.status(200);
         res.body.should.be.an('object');
-        res.body.should.have.property('message');
+        res.body.should.have.property('id');
         done();
       });
   });
