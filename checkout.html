@@ -101,7 +101,7 @@
               paymentID: data.paymentID,
               payerID: data.payerID
             }).then(function(res) {
-              window.location.href = "/complete?id=" + res.paymentID;
+              window.location.href = "/complete?id=" + data.paymentID;
             });
             // return actions.payment.execute().then(function() {
             //   // Show a confirmation message to the buyer
