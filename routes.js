@@ -44,7 +44,7 @@ router.post('/api/create-payment', (req, res) => {
         return res.sendStatus(500);
       }
       // 3. Return the payment ID to the client
-      res.json(
+      res.status(200).json(
         {
           id: response.body.id,
         },
@@ -54,9 +54,42 @@ router.post('/api/create-payment', (req, res) => {
 });
 
 router.post('/api/execute-payment', (req, res) => {
-  res.status(200).json({
-    message: 'OK',
-  });
+  // 2. Get the payment ID and the payer ID from the request body.
+  const { paymentID, payerID } = req.body;
+
+  // 3. Call /v1/payments/payment/PAY-XXX/execute to finalize the payment.
+  request.post(`${config.PAYPAL_API}/v1/payments/payment/${paymentID}/execute`,
+    {
+      auth:
+      {
+        user: config.CLIENT,
+        pass: config.SECRET,
+      },
+      body:
+      {
+        payer_id: payerID,
+        transactions: [
+          {
+            amount:
+            {
+              total: '10.99',
+              currency: 'USD',
+            },
+          },
+        ],
+      },
+      json: true,
+    }, (err, response) => {
+      if (err) {
+        console.error(err);
+        return res.sendStatus(500);
+      }
+      // 4. Return a success response to the client
+      res.status(200).json({
+        status: 'success',
+      });
+      return null;
+    });
 });
 
 // Pages

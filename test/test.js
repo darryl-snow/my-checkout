@@ -23,7 +23,6 @@ describe('My Checkout', () => {
     chai.request(server)
       .post('/api/create-payment')
       .end((err, res) => {
-        console.log(res.body);
         res.should.have.status(200);
         res.body.should.be.an('object');
         res.body.should.have.property('id');
@@ -32,12 +31,14 @@ describe('My Checkout', () => {
   });
   it('should POST to execute-payment', (done) => {
     chai.request(server)
-      .post('/api/execute-payment')
+      .post('/api/execute-payment', {
+        paymentID: 'PAY-1XP388019A362241SLQFAKPY',
+        payerID: 'LPLWNMTBWMFAY',
+      })
       .end((err, res) => {
-        console.log(res.body);
         res.should.have.status(200);
         res.body.should.be.an('object');
-        res.body.should.have.property('message');
+        res.body.should.have.property('status');
         done();
       });
   });
