@@ -18,10 +18,13 @@ describe('My Checkout', () => {
   });
   afterEach(() => {
     server.stop();
-  })
+  });
   it('should POST to create-payment', (done) => {
     chai.request(server)
-      .post('/api/create-payment')
+      .post('/api/create-payment', {
+        amount: '65.00',
+        currency: 'SGD',
+      })
       .end((err, res) => {
         res.should.have.status(200);
         res.body.should.be.an('object');

@@ -47,18 +47,21 @@ router.post('/api/create-payment', (req, res) => {
         return res.sendStatus(500);
       }
       // 3. Return the payment ID to the client
-      res.status(200).json(
-        {
-          id: response.body.id,
-        },
-      );
+      res.status(200).json({
+        id: response.body.id,
+      });
       return null;
     });
 });
 
 router.post('/api/execute-payment', (req, res) => {
   // 2. Get the payment ID and the payer ID from the request body.
-  const { paymentID, payerID } = req.body;
+  const {
+    paymentID,
+    payerID,
+    amount,
+    currency,
+  } = req.body;
 
   // 3. Call /v1/payments/payment/PAY-XXX/execute to finalize the payment.
   request.post(`${config.PAYPAL_API}/v1/payments/payment/${paymentID}/execute`,
@@ -75,8 +78,8 @@ router.post('/api/execute-payment', (req, res) => {
           {
             amount:
             {
-              total: '10.99',
-              currency: 'USD',
+              total: amount,
+              currency,
             },
           },
         ],
@@ -90,6 +93,7 @@ router.post('/api/execute-payment', (req, res) => {
       // 4. Return a success response to the client
       res.status(200).json({
         status: 'success',
+        paymentID,
       });
       return null;
     });
@@ -98,11 +102,13 @@ router.post('/api/execute-payment', (req, res) => {
 // Pages
 
 router.get('/complete', (req, res) => {
-  res.sendFile(path.join(__dirname, 'complete.html'));
+  res.render(path.join(__dirname, 'complete'), {
+    id: req.body.paymentID,
+  });
 });
 
 router.get('/', (req, res) => {
-  res.sendFile(path.join(__dirname, 'checkout.html'));
+  res.render(path.join(__dirname, 'checkout'));
 });
 
 export default router;

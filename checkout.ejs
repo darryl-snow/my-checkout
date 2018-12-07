@@ -61,6 +61,11 @@
 
       <!-- CONFIG -->
       <script>
+
+        // Payment variables
+        const amount = '65.00';
+        const currency = 'SGD';
+
         paypal.Button.render({
           // Configure environment
           env: 'sandbox',
@@ -82,8 +87,8 @@
           // Set up a payment
           payment: function(data, actions) {
             return actions.request.post('/api/create-payment', {
-              amount: '65.00',
-              currency: 'SGD'
+              amount: amount,
+              currency: currency
             }).then(function(res) {
               return res.id;
             });
@@ -101,7 +106,9 @@
           onAuthorize: function(data, actions) {
             return actions.request.post('/api/execute-payment', {
               paymentID: data.paymentID,
-              payerID: data.payerID
+              payerID: data.payerID,
+              amount: amount,
+              currency: currency
             }).then(function(res) {
               window.location.href = "/complete?id=" + data.paymentID;
             });

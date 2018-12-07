@@ -6,6 +6,9 @@ const port = process.env.PORT || 8000;
 
 const app = express();
 
+// Set the view engine to ejs
+app.set('view engine', 'ejs');
+
 app.use(bodyParser.urlencoded({
   extended: true,
 }));
