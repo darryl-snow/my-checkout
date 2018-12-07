@@ -36,7 +36,7 @@ router.post('/api/create-payment', (req, res) => {
           }],
         redirect_urls:
         {
-          return_url: 'https://www.mysite.com',
+          return_url: '/',
           cancel_url: '/',
         },
       },
@@ -101,14 +101,20 @@ router.post('/api/execute-payment', (req, res) => {
 
 // Pages
 
-router.get('/complete', (req, res) => {
-  res.render(path.join(__dirname, 'complete'), {
-    id: req.body.paymentID,
-  });
-});
+// router.get('/complete', (req, res) => {
+//   res.render(path.join(__dirname, 'complete'), {
+//     id: req.body.paymentID,
+//   });
+// });
 
 router.get('/', (req, res) => {
   res.render(path.join(__dirname, 'checkout'));
+});
+
+router.post('/', (req, res) => {
+  res.render(path.join(__dirname, 'complete'), {
+    id: req.body.paymentID,
+  });
 });
 
 export default router;

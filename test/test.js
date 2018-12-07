@@ -21,7 +21,8 @@ describe('My Checkout', () => {
   });
   it('should POST to create-payment', (done) => {
     chai.request(server)
-      .post('/api/create-payment', {
+      .post('/api/create-payment')
+      .send({
         amount: '65.00',
         currency: 'SGD',
       })
