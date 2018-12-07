@@ -54,6 +54,7 @@ router.post('/api/create-payment', (req, res) => {
 });
 
 router.post('/api/execute-payment', (req, res) => {
+  console.log(req.body);
   // 2. Get the payment ID and the payer ID from the request body.
   const { paymentID, payerID } = req.body;
 

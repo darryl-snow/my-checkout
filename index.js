@@ -1,3 +1,4 @@
+import bodyParser from 'body-parser';
 import express from 'express';
 import routes from './routes';
 
@@ -5,6 +6,7 @@ const port = process.env.PORT || 8000;
 
 const app = express();
 
+app.use(bodyParser.json());
 app.use('/', routes);
 
 const server = app.listen(port, () => {

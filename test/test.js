@@ -32,8 +32,8 @@ describe('My Checkout', () => {
   it('should POST to execute-payment', (done) => {
     chai.request(server)
       .post('/api/execute-payment', {
-        paymentID: 'PAY-1XP388019A362241SLQFAKPY',
-        payerID: 'LPLWNMTBWMFAY',
+        paymentID: 'PAY-49Y83756MN669392HLQFAQDA',
+        payerID: 'XMKAYUG4C5C4W',
       })
       .end((err, res) => {
         res.should.have.status(200);
