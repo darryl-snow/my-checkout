@@ -81,10 +81,12 @@
 
           // Set up a payment
           payment: function(data, actions) {
-            return actions.request.post('/api/create-payment')
-              .then(function(res) {
-                return res.id;
-              });
+            return actions.request.post('/api/create-payment', {
+              amount: '65.00',
+              currency: 'SGD'
+            }).then(function(res) {
+              return res.id;
+            });
             // return actions.payment.create({
             //   transactions: [{
             //     amount: {

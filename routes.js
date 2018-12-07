@@ -8,6 +8,9 @@ const router = express.Router();
 // API
 
 router.post('/api/create-payment', (req, res) => {
+  // Get payment details from the request
+  const { amount, currency } = req.body;
+
   // 2. Call /v1/payments/payment to set up the payment
   request.post(`${config.PAYPAL_API}/v1/payments/payment`,
     {
@@ -27,8 +30,8 @@ router.post('/api/create-payment', (req, res) => {
           {
             amount:
               {
-                total: '65.00',
-                currency: 'SGD',
+                total: amount,
+                currency,
               },
           }],
         redirect_urls:
