@@ -7,6 +7,12 @@ const app = express();
 
 app.use('/', routes);
 
-app.listen(port, () => {
+const server = app.listen(port, () => {
   console.log(`Server running on ${port}`);
 });
+
+// For testing
+module.exports = app;
+module.exports.stop = () => {
+  server.close();
+};
