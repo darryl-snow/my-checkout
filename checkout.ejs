@@ -41,6 +41,13 @@
       .c-form {
         display: none;
       }
+      .c-error-label {
+        color: red;
+        display: none;
+      }
+      .c-error-label.is-shown {
+        display: block;
+      }
     </style>
   </head>
   <body>
@@ -55,6 +62,8 @@
         038985<br/>
         Singapore</p>
       </div>
+
+      <label class="c-error-label"></label>
 
       <!-- BUTTON -->
       <div id="button"></div>
@@ -82,6 +91,16 @@
           return form;
         }
 
+        function toggleError(err) {
+          const errorLabel = document.querySelector('.c-error-label');
+          if (err) {
+            errorLabel.innerHTML = err;
+            errorLabel.classList.add('is-shown');
+          } else {
+            errorLabel.classList.remove('is-shown');
+          }
+        }
+
         paypal.Button.render({
           // Configure environment
           env: 'sandbox',
@@ -106,6 +125,7 @@
               amount: amount,
               currency: currency
             }).then(function(res) {
+              toggleError();
               return res.id;
             });
             // return actions.payment.create({
@@ -127,6 +147,10 @@
               currency: currency
             }).then(function(res) {
               // window.location.href = "/complete?id=" + data.paymentID;
+              if (res.error === 'INSTRUMENT_DECLINED') {
+                toggleError('Insufficient balance in your account, please choose another payment method');
+                return actions.restart();
+              }
               createForm(data.paymentID).submit();
             });
             // return actions.payment.execute().then(function() {
@@ -134,6 +158,12 @@
             //   // window.alert('Thank you for your purchase!');
             //   window.location.href = "/complete?id=" + data.paymentID;
             // });
+          },
+
+          onError: function (err) {
+            // Show an error page here, when an error occurs
+            toggleError(err.message);
+            console.error(err);
           }
         }, '#button');
 

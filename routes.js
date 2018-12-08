@@ -33,7 +33,8 @@ router.post('/api/create-payment', (req, res) => {
                 total: amount,
                 currency,
               },
-          }],
+          },
+        ],
         redirect_urls:
         {
           return_url: '/',
